@@ -53,7 +53,6 @@ fun main() {
 
         // Обрабатываем запрос на рассылку сообщения
         runListener<NightingalePublishMessage> { _, pckg ->
-
             // Берем все реалм по данному каналу, пересылаем этот пакет всем подписавшимся
             subscribers[pckg.channel]?.forEach { targetRealm -> forward(targetRealm, pckg) }
         }
