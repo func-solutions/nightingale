@@ -41,7 +41,7 @@ fun main() {
             // Перебираем все каналы, на которые хочет подписаться реалм
             pckg.channels.forEach { channel ->
                 // Добавляем в канал нового подписчика - наш реалм
-                subscribers[channel] = subscribers.computeIfAbsent(channel) { hashSetOf(realm) }.apply { add(realm) }
+                subscribers.computeIfAbsent(channel) { hashSetOf(realm) }.add(realm)
             }
             println("Subscribe from ${realm.realmName} to channels: ${pckg.channels.joinToString() }")
         }
