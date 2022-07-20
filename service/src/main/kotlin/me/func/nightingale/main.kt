@@ -49,12 +49,14 @@ fun main() {
                 // Записываем список реалмов
                 subscribers[channel] = realmList
             }
+            println("Subscribe from ${realm.realmName} to channels: ${pckg.channels.joinToString() }")
         }
 
         // Обрабатываем запрос на рассылку сообщения
-        runListener<NightingalePublishMessage> { _, pckg ->
+        runListener<NightingalePublishMessage> { realm, pckg ->
             // Берем все реалм по данному каналу, пересылаем этот пакет всем подписавшимся
             subscribers[pckg.channel]?.forEach { targetRealm -> forward(targetRealm, pckg) }
+            println("Publish from ${realm.realmName} to channel: ${pckg.channel}")
         }
     }
 }
