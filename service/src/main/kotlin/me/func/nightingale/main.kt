@@ -34,20 +34,14 @@ fun main() {
         )
 
         // Словарь слушателей каналов
-        val subscribers = hashMapOf<String, ArrayList<RealmId>>() // channel to realm list
+        val subscribers = hashMapOf<String, HashSet<RealmId>>() // channel to realm list
 
         // Обрабатываем запрос на подписку к каналу
         runListener<NightingaleSubscribeChannels> { realm, pckg ->
             // Перебираем все каналы, на которые хочет подписаться реалм
             pckg.channels.forEach { channel ->
-                // Если к данному реалму еще никто не подписался, создать пустой список
-                val realmList = subscribers[channel] ?: arrayListOf()
-
-                // Добавляем в список на реалм
-                if (!realmList.contains(realm)) realmList.add(realm)
-
-                // Записываем список реалмов
-                subscribers[channel] = realmList
+                // Добавляем в канал нового подписчика - наш реалм
+                subscribers[channel] = subscribers.computeIfAbsent(channel) { hashSetOf(realm) }.apply { add(realm) }
             }
             println("Subscribe from ${realm.realmName} to channels: ${pckg.channels.joinToString() }")
         }
