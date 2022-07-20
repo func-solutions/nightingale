@@ -50,7 +50,7 @@ class Nightingale : Listener {
         // Начать стандартный вариант работы
         fun start() = startCustom({ event ->
             // Превращаем сообщения в текст компоненты JSON
-            event.message.thenAccept {
+            event.message?.thenAccept {
                 val data = ComponentSerializer.toString(*it)
                 publishAll(event.player.uniqueId, data)
             }

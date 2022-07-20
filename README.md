@@ -4,7 +4,7 @@
 Как поставить? 
 ```groovy
 dependencies {
-    implementation 'me.func:nightingale-api:1.0.12'
+    implementation 'me.func:nightingale-api:1.0.13'
 }
 ```
 
