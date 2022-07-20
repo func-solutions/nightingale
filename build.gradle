@@ -10,7 +10,7 @@ subprojects {
     apply plugin: 'maven-publish'
 
     group 'me.func'
-    version '1.0.11'
+    version '1.0.12'
 
     publishing {
         repositories {
