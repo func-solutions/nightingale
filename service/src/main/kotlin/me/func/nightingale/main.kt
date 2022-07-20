@@ -1,7 +1,7 @@
 package me.func.nightingale
 
-import me.func.protocol.NightingalePublishMessage
 import me.func.protocol.NightingaleSubscribeChannels
+import me.func.protocol.NightingaleServicePublishMessage
 import me.func.serviceapi.runListener
 import ru.cristalix.core.CoreApi
 import ru.cristalix.core.microservice.MicroServicePlatform
@@ -24,7 +24,7 @@ fun main() {
         // Подписываемся на получение пакетов
         registerCapabilities(
             Capability.builder()
-                .className(NightingalePublishMessage::class.java.name)
+                .className(NightingaleServicePublishMessage::class.java.name)
                 .notification(true)
                 .build(),
             Capability.builder()
@@ -53,7 +53,7 @@ fun main() {
         }
 
         // Обрабатываем запрос на рассылку сообщения
-        runListener<NightingalePublishMessage> { realm, pckg ->
+        runListener<NightingaleServicePublishMessage> { realm, pckg ->
             // Берем все реалм по данному каналу, пересылаем этот пакет всем подписавшимся
             subscribers[pckg.channel]?.forEach { targetRealm -> forward(targetRealm, pckg) }
             println("Publish from ${realm.realmName} to channel: ${pckg.channel}")

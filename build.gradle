@@ -10,7 +10,7 @@ subprojects {
     apply plugin: 'maven-publish'
 
     group 'me.func'
-    version 'live-SNAPSHOT'
+    version '1.0.11'
 
     publishing {
         repositories {
