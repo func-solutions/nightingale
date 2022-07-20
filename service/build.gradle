@@ -1,19 +1,17 @@
 plugins {
-    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
+shadowJar {
+    archiveBaseName.set 'nightingale-service'
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-}
+    implementation project(":protocol")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.0")
 
-test {
-    useJUnitPlatform()
+    api("me.func:service-api:live-SNAPSHOT")
+
+    compileOnly 'cristalix:microservice:20.11.04'
 }

@@ -1,0 +1,24 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://repo.c7x.ru/repository/maven-public/'
+            credentials {
+                username = System.getenv("CRI_REPO_LOGIN") ?: System.getenv("CRISTALIX_REPO_USERNAME")
+                password = System.getenv("CRI_REPO_PASSWORD") ?: System.getenv("CRISTALIX_REPO_PASSWORD")
+            }
+        }
+        maven { url "https://papermc.io/repo/repository/maven-public/" }
+        mavenLocal()
+    }
+
+    repositoriesMode.set RepositoriesMode.FAIL_ON_PROJECT_REPOS
+}
+
+rootProject.name = 'nightingale'
+
+include 'service', 'protocol', 'api'

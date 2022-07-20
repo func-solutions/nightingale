@@ -1,0 +1,28 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.6.21' apply false
+    id 'java-library'
+    id 'maven-publish'
+}
+
+subprojects {
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+
+    group 'me.func'
+    version 'live-SNAPSHOT'
+
+    publishing {
+        repositories {
+            mavenLocal()
+            maven {
+                name = "func"
+                url = uri("https://repo.c7x.ru/repository/maven-${if (project.version.toString().contains("SNAPSHOT")) "snapshots" else "releases"}/")
+                credentials {
+                    username = System.getenv("CRI_REPO_LOGIN") ?: System.getenv("CRISTALIX_REPO_USERNAME")
+                    password = System.getenv("CRI_REPO_PASSWORD") ?: System.getenv("CRISTALIX_REPO_PASSWORD")
+                }
+            }
+        }
+    }
+}
